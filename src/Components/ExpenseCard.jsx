@@ -5,14 +5,17 @@ display:flex;
     flex:1;
     padding:10px;
 }`
-const ExpenseCard = () => {
+const ExpenseCard = ({transactions}) => {
+    const amount = transactions.map(transaction => transaction.amount)
+    const income = amount.filter(curAmount => curAmount > 0).reduce((amount , curAmount) => amount+=curAmount)
+    const expense = (amount.filter(curAmount => curAmount < 0).reduce((amount , curAmount) => amount+=curAmount))*-1;
     return (<>
     <Container>
         <Card>
             <CardContent>
                 <Typography>Income : </Typography>
                 <Typography style={{color:'green'}}>
-                    25
+                ₹{income}
                 </Typography>
             </CardContent>
         </Card>
@@ -20,7 +23,7 @@ const ExpenseCard = () => {
             <CardContent>
                 <Typography>Expense : </Typography>
                 <Typography style={{color:'red'}}>
-                    25
+                ₹{expense}
                 </Typography>
             </CardContent>
         </Card>
